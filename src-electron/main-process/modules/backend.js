@@ -57,8 +57,13 @@ export class Backend {
             },
 
             daemon: {
-                type: "local_remote",
-                remote_host: "geo.ryoblocks.com",
+                // Default to "local" so a fresh install never sends wallet
+                // JSON-RPC traffic to a hostname the project no longer owns.
+                // The previous default `geo.ryoblocks.com:12211` is no longer
+                // controlled by Ryo Currency (see SECURITY.md); users who want
+                // a remote daemon should set one they trust in preferences.
+                type: "local",
+                remote_host: "",
                 remote_port: 12211,
                 p2p_bind_ip: "0.0.0.0",
                 p2p_bind_port: 12210,
@@ -207,7 +212,7 @@ export class Backend {
             case "open_explorer":
                 let explorer_url = "https://explorer.ryo-currency.com"
                 if(this.config_data.app.testnet) {
-                    explorer_url = "https://tnexp.ryoblocks.com"
+                    explorer_url = "https://tnexp.ryo-currency.com"
                 }
                 if(params.type == "tx") {
                     require("electron").shell.openExternal(`${explorer_url}/tx/${params.id}`)
