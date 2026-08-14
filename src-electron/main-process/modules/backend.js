@@ -57,13 +57,12 @@ export class Backend {
             },
 
             daemon: {
-                // Default to "local" so a fresh install never sends wallet
-                // JSON-RPC traffic to a hostname the project no longer owns.
+                // Default remote points at Ryo-controlled infrastructure.
                 // The previous default `geo.ryoblocks.com:12211` is no longer
-                // controlled by Ryo Currency (see SECURITY.md); users who want
-                // a remote daemon should set one they trust in preferences.
-                type: "local",
-                remote_host: "",
+                // controlled by Ryo Currency; the domain expired and was
+                // re-registered by an unrelated party.
+                type: "local_remote",
+                remote_host: "wallet-node.ryo-currency.com",
                 remote_port: 12211,
                 p2p_bind_ip: "0.0.0.0",
                 p2p_bind_port: 12210,
